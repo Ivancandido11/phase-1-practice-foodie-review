@@ -4,6 +4,17 @@ const dishImage = document.querySelector("body > main > div > img")
 const dishDescription = document.querySelector("body > main > div > form.description > textarea")
 const dishReviewsUl = document.querySelector("body > main > div > ul")
 const existingReviews = document.querySelectorAll("body > main > div > ul > li")
+const reviewForm = document.querySelector(".review-form")
+const reviewInput = document.querySelector("body > main > div > form.review-form > textarea")
+
+const addAReview = () => {
+  reviewForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+    const newReview = document.createElement("li")
+    newReview.innerHTML = reviewInput.value
+    dishReviewsUl.append(newReview)
+  })
+}
 
 const getDish = (dish) => {
   existingReviews.forEach(eReview => {
@@ -20,6 +31,7 @@ const getDish = (dish) => {
 }
 
 const init = () => {
+  addAReview()
   fetch("http://localhost:3000/dishes/1")
     .then(resp => resp.json())
     .then(dish => {
